@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float swerveAmount = Time.deltaTime * swerveSpeed * moveFactorX;
         transform.Translate(x: swerveAmount, y: 0, z: 1 * swerveSpeed * Time.deltaTime * 3);
-        float posX = Mathf.Clamp(transform.position.x, -4, 4);
+        float posX = Mathf.Clamp(transform.position.x, -2, 2);
         transform.position = new Vector3(posX, transform.position.y, transform.position.z);
     }
 }
