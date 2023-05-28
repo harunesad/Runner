@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        UIManager.uý.ScoreIncrease();
         SwerveSystem();
         Move();
     }
@@ -47,9 +48,10 @@ public class PlayerMovement : MonoBehaviour
     #region Move
     public void Move()
     {
+        Debug.Log(PlayerData.playerData.Speed);
         playerAnim.SetBool("Run", true);
         float swerveAmount = Time.deltaTime * swerveSpeed * moveFactorX;
-        transform.Translate(x: swerveAmount, y: 0, z: 1 * swerveSpeed * Time.deltaTime * PlayerData.playerData.Speed);
+        transform.Translate(x: swerveAmount, y: 0, z: Time.deltaTime * PlayerData.playerData.Speed);
         float posX = Mathf.Clamp(transform.position.x, -2, 2);
         transform.position = new Vector3(posX, transform.position.y, transform.position.z);
     }
@@ -57,31 +59,39 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.layer == 8 && gameObject.layer == 6)
+        if (other.gameObject.layer == 8)
         {
             NumberFind(other, 1f);
         }
-        if (other.gameObject.layer == 9 && gameObject.layer == 6)
+        if (other.gameObject.layer == 9)
         {
             NumberFind(other, -1f);
         }
-
+        if (other.gameObject.layer == 10)
+        {
+            CoinAdd(other);
+        }
+        if (other.gameObject.layer == 11)
+        {
+            HealthAdd(other);
+        }
     }
+    #region GateCrash
     void NumberFind(Collider other, float result)
     {
         TextMeshProUGUI[] texts = other.GetComponentsInChildren<TextMeshProUGUI>();
         string count = texts[0].text.Substring(1, texts[0].text.Length - 1);
-        float countNumber = (float)Convert.ToDouble(count) * result; 
+        float countNumber = (float)Convert.ToDouble(count) * result;
         switch (texts[1].text)
         {
             case "RANGE":
-                PlayerData.playerData.RangeColider = countNumber;
+                PlayerData.playerData.RangeColider += countNumber;
                 GameManager.manager.bc.center = new Vector3(0, 0, PlayerData.playerData.RangeColider);
                 break;
             case "SHIELD":
                 break;
             case "SPEED":
-                PlayerData.playerData.Speed = countNumber;
+                PlayerData.playerData.Speed += countNumber;
                 break;
             case "RATEFIRE":
                 break;
@@ -89,4 +99,21 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
+    #endregion
+    #region CoinAdd
+    void CoinAdd(Collider other)
+    {
+        PlayerData.playerData.CoinCount += ItemData.itemData.CoinIncCount;
+        UIManager.uý.coinText.text = "Coin " + PlayerData.playerData.CoinCount;
+        Destroy(other.gameObject);
+    }
+    #endregion
+    #region HealthAdd
+    void HealthAdd(Collider other)
+    {
+        PlayerData.playerData.Health += ItemData.itemData.HealthInc;
+        health = PlayerData.playerData.Health;
+        Destroy(other.gameObject);
+    }
+    #endregion
 }

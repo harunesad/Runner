@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GatesData : MonoBehaviour
 {
+    //Kullanýlmayan kod
     public static GatesData gatesData;
     #region Fields
     private int rangeColliderMultiply;

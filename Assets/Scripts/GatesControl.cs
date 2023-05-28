@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,6 +9,7 @@ public class GatesControl : MonoBehaviour
 {
     public static GatesControl gatesControl;
     float sa = 5;
+    #region GatesState
     enum GatesState
     {
         Range,
@@ -17,10 +17,7 @@ public class GatesControl : MonoBehaviour
         Speed,
         RateFire
     }
-    private void Start()
-    {
-
-    }
+    #endregion
     #region GateRandom
     public void GateRandom(GameObject gatePositive, GameObject gateNegative)
     {
@@ -74,7 +71,7 @@ public class GatesControl : MonoBehaviour
         float randomCount = Random.Range(.1f, .5f);
         countPositive[0].text = "+" + Math.Round(randomCount, 1);
         countNegative[0].text = "-" + Math.Round(randomCount, 1);
-        countNegative[1].text = "RANGE";
+        countPositive[1].text = "RANGE";
         countNegative[1].text = "RANGE";
     }
     void GateShield(GameObject gatePositive, GameObject gateNegative)
@@ -83,7 +80,7 @@ public class GatesControl : MonoBehaviour
         TextMeshProUGUI[] countNegative = gateNegative.GetComponentsInChildren<TextMeshProUGUI>();
         countPositive[0].text = "+" + 1;
         countNegative[0].text = "-" + 1;
-        countNegative[1].text = "SHIELD";
+        countPositive[1].text = "SHIELD";
         countNegative[1].text = "SHIELD";
     }
     void GateSpeed(GameObject gatePositive, GameObject gateNegative)
@@ -93,7 +90,7 @@ public class GatesControl : MonoBehaviour
         float randomCount = Random.Range(.1f, .5f);
         countPositive[0].text = "+" + Math.Round(randomCount, 1);
         countNegative[0].text = "-" + Math.Round(randomCount, 1);
-        countNegative[1].text = "SPEED";
+        countPositive[1].text = "SPEED";
         countNegative[1].text = "SPEED";
     }
     void GateRateFire(GameObject gatePositive, GameObject gateNegative)
@@ -102,7 +99,7 @@ public class GatesControl : MonoBehaviour
         TextMeshProUGUI[] countNegative = gateNegative.GetComponentsInChildren<TextMeshProUGUI>();
         countPositive[0].text = "+" + .1f;
         countNegative[0].text = "-" + .1f;
-        countNegative[1].text = "RATEFIRE";
+        countPositive[1].text = "RATEFIRE";
         countNegative[1].text = "RATEFIRE";
     }
     #endregion

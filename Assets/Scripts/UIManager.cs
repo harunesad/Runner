@@ -6,7 +6,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager uý;
-    public TextMeshProUGUI startNumberText, scoreText, scoreMultiplyText;
+    public TextMeshProUGUI startNumberText, scoreText, scoreMultiplyText, coinText;
     int startNumber;
     float scoreIncMultiply = 100;
     float score = 0;
@@ -20,11 +20,12 @@ public class UIManager : MonoBehaviour
         startNumberText.text = startNumber.ToString();
         scoreText.text = "" + score;
         scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
+        coinText.text = "Coin " + PlayerData.playerData.CoinCount;
         StartCoroutine(GameStart());
     }
     private void Update()
     {
-        ScoreIncrease();
+        
     }
     #region ScoreAndMultiply
     public void ScoreIncrease()
@@ -33,7 +34,7 @@ public class UIManager : MonoBehaviour
         scoreText.text = "" + Mathf.FloorToInt(score);
         if (score > scoreIncMultiply)
         {
-            PlayerData.playerData.ScoreMultiply = .1f;
+            PlayerData.playerData.ScoreMultiply += .1f;
             scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
             scoreIncMultiply += scoreIncMultiply;
         }
