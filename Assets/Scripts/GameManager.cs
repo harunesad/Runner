@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject rangeCollider;
+    public List<GameObject> levels;
+    int levelCount = 1;
+    BoxCollider bc;
+    private void Awake()
+    {
+        bc = rangeCollider.GetComponent<BoxCollider>();
+    }
     void Start()
     {
-        
+        bc.center = new Vector3(0, 0, PlayerData.playerData.RangeColider);
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        UIManager.uý.ScoreIncrease();
     }
 }
