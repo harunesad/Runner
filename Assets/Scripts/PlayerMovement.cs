@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -52,4 +54,39 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new Vector3(posX, transform.position.y, transform.position.z);
     }
     #endregion
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.gameObject.layer == 8 && gameObject.layer == 6)
+        {
+            NumberFind(other, 1f);
+        }
+        if (other.gameObject.layer == 9 && gameObject.layer == 6)
+        {
+            NumberFind(other, -1f);
+        }
+
+    }
+    void NumberFind(Collider other, float result)
+    {
+        TextMeshProUGUI[] texts = other.GetComponentsInChildren<TextMeshProUGUI>();
+        string count = texts[0].text.Substring(1, texts[0].text.Length - 1);
+        float countNumber = (float)Convert.ToDouble(count) * result; 
+        switch (texts[1].text)
+        {
+            case "RANGE":
+                PlayerData.playerData.RangeColider = countNumber;
+                GameManager.manager.bc.center = new Vector3(0, 0, PlayerData.playerData.RangeColider);
+                break;
+            case "SHIELD":
+                break;
+            case "SPEED":
+                PlayerData.playerData.Speed = countNumber;
+                break;
+            case "RATEFIRE":
+                break;
+            default:
+                break;
+        }
+    }
 }

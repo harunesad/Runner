@@ -6,7 +6,7 @@ public class PlayerData : MonoBehaviour
 {
     public static PlayerData playerData;
     #region Fields
-    private int rangeCollider = 3;
+    private float rangeCollider = 3;
     private float scoreMultiply = 1;
     private int shieldCount = 0;
     private int speedChangeCount = 0;
@@ -15,7 +15,7 @@ public class PlayerData : MonoBehaviour
     private float rateFire = 3;
     #endregion
     #region Properties
-    public int RangeColider
+    public float RangeColider
     {
         get { return rangeCollider; }
         set 

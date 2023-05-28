@@ -22,6 +22,10 @@ public class UIManager : MonoBehaviour
         scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
         StartCoroutine(GameStart());
     }
+    private void Update()
+    {
+        ScoreIncrease();
+    }
     #region ScoreAndMultiply
     public void ScoreIncrease()
     {
@@ -50,7 +54,7 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(.25f);
         startNumberText.gameObject.SetActive(false);
         FindObjectOfType<PlayerMovement>().enabled = true;
-        FindObjectOfType<GameManager>().enabled = true;
+        //FindObjectOfType<GameManager>().enabled = true;
     }
     #endregion
 }
