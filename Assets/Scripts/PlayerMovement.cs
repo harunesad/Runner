@@ -48,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
     #region Move
     public void Move()
     {
-        Debug.Log(PlayerData.playerData.Speed);
         playerAnim.SetBool("Run", true);
         float swerveAmount = Time.deltaTime * swerveSpeed * moveFactorX;
         transform.Translate(x: swerveAmount, y: 0, z: Time.deltaTime * PlayerData.playerData.Speed);
@@ -75,6 +74,18 @@ public class PlayerMovement : MonoBehaviour
         {
             HealthAdd(other);
         }
+        if (other.gameObject.layer == 12)
+        {
+            TermScoreInc(other);
+        }
+        if (other.gameObject.layer == 13)
+        {
+            ShieldAdd(other);
+        }
+        if (other.gameObject.layer == 14)
+        {
+            SpeedAdd(other);
+        }
     }
     #region GateCrash
     void NumberFind(Collider other, float result)
@@ -89,6 +100,8 @@ public class PlayerMovement : MonoBehaviour
                 GameManager.manager.bc.center = new Vector3(0, 0, PlayerData.playerData.RangeColider);
                 break;
             case "SHIELD":
+                PlayerData.playerData.ShieldCount += (int)countNumber;
+                UIManager.uý.shieldText.text = "" + PlayerData.playerData.ShieldCount;
                 break;
             case "SPEED":
                 PlayerData.playerData.Speed += countNumber;
@@ -116,4 +129,38 @@ public class PlayerMovement : MonoBehaviour
         Destroy(other.gameObject);
     }
     #endregion
+    #region TermScoreIncrease
+    void TermScoreInc(Collider other)
+    {
+        PlayerData.playerData.ScoreMultiply += ItemData.itemData.ScoreMultiplyInc;
+        UIManager.uý.scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
+        StartCoroutine(TermFinished());
+        Destroy(other.gameObject);
+    }
+    #endregion
+    #region TermScoreIncreaseFinish
+    IEnumerator TermFinished()
+    {
+        yield return new WaitForSeconds(ItemData.itemData.ScoreMultiplyIncTime);
+        PlayerData.playerData.ScoreMultiply -= ItemData.itemData.ScoreMultiplyInc;
+        UIManager.uý.scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
+    }
+    #endregion
+    #region ShieldAdd
+    void ShieldAdd(Collider other)
+    {
+        PlayerData.playerData.ShieldCount++;
+        UIManager.uý.shieldText.text = "" + PlayerData.playerData.ShieldCount;
+        Destroy(other.gameObject);
+    }
+    #endregion
+    #region SpeedAdd
+    void SpeedAdd(Collider other)
+    {
+        PlayerData.playerData.SpeedCount++;
+        UIManager.uý.speedText.text = "" + PlayerData.playerData.SpeedCount;
+        Destroy(other.gameObject);
+    }
+    #endregion
+
 }

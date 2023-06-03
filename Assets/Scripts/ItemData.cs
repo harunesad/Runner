@@ -42,6 +42,24 @@ public class ItemData : MonoBehaviour
         }
         set { PlayerPrefs.SetFloat("HealthInc", value); }
     }
+    public float ScoreMultiplyStartCount
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("ScoreMultiply"))
+            {
+                return PlayerPrefs.GetFloat("ScoreMultiply");
+            }
+            else
+            {
+                return 1f;
+            }
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("ScoreMultiply", value);
+        }
+    }
     public float ScoreMultiplyInc
     {
         get
@@ -60,6 +78,61 @@ public class ItemData : MonoBehaviour
             PlayerPrefs.SetFloat("ScoreMultiplyInc", value);
         }
     }
+    public float ScoreMultiplyIncTime
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("ScoreMultiplyIncTime"))
+            {
+                return PlayerPrefs.GetFloat("ScoreMultiplyIncTime");
+            }
+            else
+            {
+                return 3f;
+            }
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("ScoreMultiplyIncTime", value);
+        }
+    }
+    public int ShieldStartCount
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("ShieldStart"))
+            {
+                return PlayerPrefs.GetInt("ShieldStart");
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("ShieldStart", value);
+        }
+    }
+    public int SpeedStartCount
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("SpeedStart"))
+            {
+                return PlayerPrefs.GetInt("SpeedStart");
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("SpeedStart", value);
+        }
+    }
+
     #endregion
     private void Awake()
     {

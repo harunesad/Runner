@@ -17,10 +17,10 @@ TagManager:
   - GateNegative
   - Coin
   - Health
-  - 
-  - 
-  - 
-  - 
+  - Score
+  - Shield
+  - Speed
+  - Enemy
   - 
   - 
   - 

@@ -6,7 +6,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager uý;
-    public TextMeshProUGUI startNumberText, scoreText, scoreMultiplyText, coinText;
+    public TextMeshProUGUI startNumberText, scoreText, scoreMultiplyText, coinText, shieldText, speedText;
     int startNumber;
     float scoreIncMultiply = 100;
     float score = 0;
@@ -19,8 +19,13 @@ public class UIManager : MonoBehaviour
         startNumber = 3;
         startNumberText.text = startNumber.ToString();
         scoreText.text = "" + score;
+        PlayerData.playerData.ScoreMultiply = ItemData.itemData.ScoreMultiplyStartCount;
         scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
-        coinText.text = "Coin " + PlayerData.playerData.CoinCount;
+        PlayerData.playerData.ShieldCount = ItemData.itemData.ShieldStartCount;
+        shieldText.text = "" + PlayerData.playerData.ShieldCount;
+        PlayerData.playerData.SpeedCount = ItemData.itemData.SpeedStartCount;
+        speedText.text = "" + PlayerData.playerData.SpeedCount;
+        coinText.text = "" + PlayerData.playerData.CoinCount;
         StartCoroutine(GameStart());
     }
     private void Update()

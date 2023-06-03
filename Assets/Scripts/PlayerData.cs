@@ -8,7 +8,8 @@ public class PlayerData : MonoBehaviour
     #region Fields
     private float rangeCollider = 3;
     private float scoreMultiply = 1;
-    private int shieldCount = 0;
+    private int shieldCount;
+    private int speedCount;
     //private float speedChangeCount = PlayerPrefs.GetFloat("SpeedReduce");
     private float health = 100;
     private float speed = 3;
@@ -43,6 +44,15 @@ public class PlayerData : MonoBehaviour
         { 
             shieldCount = value;
             shieldCount = Mathf.Clamp(shieldCount, 0, 10);
+        }
+    }
+    public int SpeedCount
+    {
+        get { return speedCount; }
+        set
+        {
+            speedCount = value;
+            speedCount = Mathf.Clamp(speedCount, 0, 10);
         }
     }
     public float Health
