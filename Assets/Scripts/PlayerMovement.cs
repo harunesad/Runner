@@ -7,7 +7,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement player;
-    Animator playerAnim;
+    public Animator playerAnim;
+    public GameObject playerShield;
     float lastFrameFingerPositionX;
     float moveFactorX;
     public float swerveSpeed = 1f;
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         player = this;
         playerAnim = GetComponent<Animator>();
+        playerShield = transform.GetChild(9).gameObject;
     }
     private void Start()
     {
@@ -57,34 +59,31 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.layer == 8)
+        switch (other.gameObject.layer)
         {
-            NumberFind(other, 1f);
-        }
-        if (other.gameObject.layer == 9)
-        {
-            NumberFind(other, -1f);
-        }
-        if (other.gameObject.layer == 10)
-        {
-            CoinAdd(other);
-        }
-        if (other.gameObject.layer == 11)
-        {
-            HealthAdd(other);
-        }
-        if (other.gameObject.layer == 12)
-        {
-            TermScoreInc(other);
-        }
-        if (other.gameObject.layer == 13)
-        {
-            ShieldAdd(other);
-        }
-        if (other.gameObject.layer == 14)
-        {
-            SpeedAdd(other);
+            case 8:
+                NumberFind(other, 1f);
+                break;
+            case 9:
+                NumberFind(other, -1f);
+                break;
+            case 10:
+                CoinAdd(other);
+                break;
+            case 11:
+                HealthAdd(other);
+                break;
+            case 12:
+                TermScoreInc(other);
+                break;
+            case 13:
+                ShieldAdd(other);
+                break;
+            case 14:
+                SpeedAdd(other);
+                break;
+            default:
+                break;
         }
     }
     #region GateCrash
@@ -162,5 +161,4 @@ public class PlayerMovement : MonoBehaviour
         Destroy(other.gameObject);
     }
     #endregion
-
 }

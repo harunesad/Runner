@@ -42,6 +42,22 @@ public class ItemData : MonoBehaviour
         }
         set { PlayerPrefs.SetFloat("HealthInc", value); }
     }
+    public float HealthReduce
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("HealthReduce"))
+            {
+                return PlayerPrefs.GetFloat("HealthReduce");
+            }
+            else
+            {
+                return 25;
+            }
+        }
+        set { PlayerPrefs.SetFloat("HealthReduce", value); }
+    }
+
     public float ScoreMultiplyStartCount
     {
         get
@@ -132,7 +148,24 @@ public class ItemData : MonoBehaviour
             PlayerPrefs.SetFloat("SpeedStart", value);
         }
     }
-
+    public float SpeedSlowTime
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("SpeedSlowTime"))
+            {
+                return PlayerPrefs.GetInt("SpeedSlowTime");
+            }
+            else
+            {
+                return 3f;
+            }
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("SpeedSlowTime", value);
+        }
+    }
     #endregion
     private void Awake()
     {

@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager uý;
     public TextMeshProUGUI startNumberText, scoreText, scoreMultiplyText, coinText, shieldText, speedText;
+    public Button shieldButton, speedButton;
     int startNumber;
     float scoreIncMultiply = 100;
     float score = 0;
@@ -26,6 +28,10 @@ public class UIManager : MonoBehaviour
         PlayerData.playerData.SpeedCount = ItemData.itemData.SpeedStartCount;
         speedText.text = "" + PlayerData.playerData.SpeedCount;
         coinText.text = "" + PlayerData.playerData.CoinCount;
+
+        speedButton.onClick.AddListener(SpeedSlow);
+        shieldButton.onClick.AddListener(ShieldOpen);
+
         StartCoroutine(GameStart());
     }
     private void Update()
@@ -61,6 +67,38 @@ public class UIManager : MonoBehaviour
         startNumberText.gameObject.SetActive(false);
         FindObjectOfType<PlayerMovement>().enabled = true;
         //FindObjectOfType<GameManager>().enabled = true;
+    }
+    #endregion
+    #region SpeedSlow
+    void SpeedSlow()
+    {
+        if (PlayerData.playerData.SpeedCount > 0)
+        {
+            PlayerData.playerData.Speed /= 2;
+            PlayerMovement.player.playerAnim.speed /= 2;
+            PlayerData.playerData.SpeedCount--;
+            speedText.text = "" + PlayerData.playerData.SpeedCount;
+            StartCoroutine(TermFinished());
+        }
+    }
+    #endregion
+    #region TermScoreIncreaseFinish
+    IEnumerator TermFinished()
+    {
+        yield return new WaitForSeconds(ItemData.itemData.SpeedSlowTime);
+        PlayerData.playerData.Speed *= 2;
+        PlayerMovement.player.playerAnim.speed *= 2;
+    }
+    #endregion
+    #region ShieldOpen
+    void ShieldOpen()
+    {
+        if (PlayerData.playerData.ShieldCount > 0)
+        {
+            PlayerMovement.player.playerShield.SetActive(true);
+            PlayerData.playerData.ShieldCount--;
+            shieldText.text = "" + PlayerData.playerData.ShieldCount;
+        }
     }
     #endregion
 }
