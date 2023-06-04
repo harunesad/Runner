@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - Range
+  - RangePlayer
   - GatePositive
   - GateNegative
   - Coin
@@ -23,8 +23,8 @@ TagManager:
   - Laser
   - PlayerShield
   - Enemy
-  - 
-  - 
+  - RangeEnemy
+  - PlayerBullet
   - 
   - 
   - 

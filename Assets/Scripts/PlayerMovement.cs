@@ -1,27 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement player;
     public Animator playerAnim;
+    public BoxCollider playerCollider;
     public GameObject playerShield;
+    public Image healthBar;
     float lastFrameFingerPositionX;
     float moveFactorX;
     public float swerveSpeed = 1f;
-    float health;
+    //float health;
     private void Awake()
     {
         player = this;
-        playerAnim = GetComponent<Animator>();
-        playerShield = transform.GetChild(9).gameObject;
+        //playerAnim = GetComponent<Animator>();
+        //playerShield = transform.GetChild(9).gameObject;
     }
     private void Start()
     {
-        health = PlayerData.playerData.Health;
+        playerCollider.center = new Vector3(0, 0, PlayerData.playerData.RangeColider);
+        //health = PlayerData.playerData.Health;
     }
     void Update()
     {
@@ -96,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         {
             case "RANGE":
                 PlayerData.playerData.RangeColider += countNumber;
-                GameManager.manager.bc.center = new Vector3(0, 0, PlayerData.playerData.RangeColider);
+                playerCollider.center = new Vector3(0, 0, PlayerData.playerData.RangeColider);
                 break;
             case "SHIELD":
                 PlayerData.playerData.ShieldCount += (int)countNumber;
@@ -124,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
     void HealthAdd(Collider other)
     {
         PlayerData.playerData.Health += ItemData.itemData.HealthInc;
-        health = PlayerData.playerData.Health;
+        //health = PlayerData.playerData.Health;
         Destroy(other.gameObject);
     }
     #endregion

@@ -1,22 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerData : MonoBehaviour
 {
     public static PlayerData playerData;
     #region Fields
-    private float rangeCollider = 3;
+    private float rangeCollider = 4;
     private float scoreMultiply = 1;
     private int shieldCount;
     private int speedCount;
-    //private float speedChangeCount = PlayerPrefs.GetFloat("SpeedReduce");
     private float health = 100;
     private float speed = 3;
-    private float rateFire = 3;
-    //private float healthInc = PlayerPrefs.GetFloat("HealthInc");
-    //private float coinCount = PlayerPrefs.GetFloat("Coin");
-    //private float coinIncCount = PlayerPrefs.GetFloat("CoinInc");
+    private float rateFire = 2;
     #endregion
     #region Properties
     public float RangeColider
@@ -62,6 +59,7 @@ public class PlayerData : MonoBehaviour
         {
             health = value;
             health = Mathf.Clamp(health, 0, 100);
+            PlayerMovement.player.healthBar.DOFillAmount(health / 100, 1).SetEase(Ease.Linear);
         }
     }
     public float Speed

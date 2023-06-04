@@ -55,7 +55,10 @@ public class ItemData : MonoBehaviour
                 return 25;
             }
         }
-        set { PlayerPrefs.SetFloat("HealthReduce", value); }
+        set 
+        { 
+            PlayerPrefs.SetFloat("HealthReduce", value);
+        }
     }
 
     public float ScoreMultiplyStartCount
