@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 public class GatesControl : MonoBehaviour
 {
     public static GatesControl gatesControl;
-    float sa = 5;
     #region GatesState
     enum GatesState
     {

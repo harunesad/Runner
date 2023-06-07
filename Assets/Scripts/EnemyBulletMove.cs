@@ -20,7 +20,7 @@ public class EnemyBulletMove : MonoBehaviour
             CapsuleCollider cc = other.GetComponent<CapsuleCollider>();
             PlayerMovement.player.playerAnim.SetTrigger("Death");
             FindObjectOfType<PlayerMovement>().enabled = false;
-            Debug.Log(gameObject.name);
+            FindObjectOfType<FireToEnemy>().CancelInvoke();
             Destroy(cc);
             Destroy(other.gameObject, 3);
             Destroy(gameObject);
@@ -28,6 +28,7 @@ public class EnemyBulletMove : MonoBehaviour
         if (other.gameObject.layer == 16)
         {
             LaserCrash.laser.ShieldClose();
+            Destroy(gameObject);
         }
     }
 }

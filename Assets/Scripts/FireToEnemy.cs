@@ -19,6 +19,6 @@ public class FireToEnemy : MonoBehaviour
     }
     void BulletSpawn()
     {
-        Instantiate(playerBullet, transform.position, Quaternion.identity);
+        Instantiate(playerBullet, transform.position, Quaternion.identity, transform);
     }
 }
