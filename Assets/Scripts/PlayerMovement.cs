@@ -24,7 +24,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Start()
     {
-        playerCollider.center = new Vector3(0, 0, PlayerData.playerData.RangeColider);
+        playerCollider.size = new Vector3(.1f, .1f, PlayerData.playerData.RangeColider);
+        playerCollider.center = new Vector3(0, 0, PlayerData.playerData.RangeColider / 2);
         //health = PlayerData.playerData.Health;
     }
     void Update()
@@ -100,7 +101,8 @@ public class PlayerMovement : MonoBehaviour
         {
             case "RANGE":
                 PlayerData.playerData.RangeColider += countNumber;
-                playerCollider.center = new Vector3(0, 0, PlayerData.playerData.RangeColider);
+                playerCollider.size = new Vector3(.1f, .1f, PlayerData.playerData.RangeColider);
+                playerCollider.center = new Vector3(0, 0, PlayerData.playerData.RangeColider / 2);
                 break;
             case "SHIELD":
                 PlayerData.playerData.ShieldCount += (int)countNumber;

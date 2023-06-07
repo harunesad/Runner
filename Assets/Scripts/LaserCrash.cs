@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class LaserCrash : MonoBehaviour
 {
-    void Start()
+    public static LaserCrash laser;
+    private void Awake()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        laser = this;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -31,7 +27,7 @@ public class LaserCrash : MonoBehaviour
     }
     #endregion
     #region ShieldClose
-    void ShieldClose()
+    public void ShieldClose()
     {
         StartCoroutine(TermShieldClose());
     }

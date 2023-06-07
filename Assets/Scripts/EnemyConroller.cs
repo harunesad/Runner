@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemyConroller : MonoBehaviour
 {
+    public static EnemyConroller enemy;
     public BoxCollider enemyCollider;
     #region Fields
-    private float rangeCollider = 4;
+    private float rangeCollider = 5;
     private float rateFire = 2;
     #endregion
     #region Properties
@@ -29,14 +30,13 @@ public class EnemyConroller : MonoBehaviour
         }
     }
     #endregion
+    private void Awake()
+    {
+        enemy = this;
+    }
     void Start()
     {
-        enemyCollider.center = new Vector3(0, 0, rangeCollider);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        enemyCollider.size = new Vector3(.1f, .1f, rangeCollider);
+        enemyCollider.center = new Vector3(0, 0, rangeCollider / 2);
     }
 }

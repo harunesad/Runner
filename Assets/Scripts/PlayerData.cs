@@ -7,7 +7,7 @@ public class PlayerData : MonoBehaviour
 {
     public static PlayerData playerData;
     #region Fields
-    private float rangeCollider = 4;
+    private float rangeCollider = 5;
     private float scoreMultiply = 1;
     private int shieldCount;
     private int speedCount;

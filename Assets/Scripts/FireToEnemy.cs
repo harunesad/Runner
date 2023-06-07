@@ -5,19 +5,13 @@ using UnityEngine;
 public class FireToEnemy : MonoBehaviour
 {
     public GameObject playerBullet;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
         Fire();
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        CancelInvoke();
     }
     void Fire()
     {
@@ -27,5 +21,4 @@ public class FireToEnemy : MonoBehaviour
     {
         Instantiate(playerBullet, transform.position, Quaternion.identity);
     }
-
 }
