@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Start()
     {
-        playerCollider.size = new Vector3(.1f, .1f, PlayerData.playerData.RangeColider);
+        playerCollider.size = new Vector3(1f, .1f, PlayerData.playerData.RangeColider);
         playerCollider.center = new Vector3(0, 0, PlayerData.playerData.RangeColider / 2);
         //health = PlayerData.playerData.Health;
     }
@@ -33,6 +33,11 @@ public class PlayerMovement : MonoBehaviour
         UIManager.uý.ScoreIncrease();
         SwerveSystem();
         Move();
+        if (transform.position.z > GameManager.manager.newLevelsPos)
+        {
+            GameManager.manager.NewLevels();
+            GameManager.manager.newLevelsPos += GameManager.manager.posDifferent;
+        }
     }
     #region Swerve
     public void SwerveSystem()
@@ -122,8 +127,8 @@ public class PlayerMovement : MonoBehaviour
     void CoinAdd(Collider other)
     {
         PlayerData.playerData.CoinCount += ItemData.itemData.CoinIncCount;
-        UIManager.uý.coinText.text = "Coin " + PlayerData.playerData.CoinCount;
-        Destroy(other.gameObject);
+        UIManager.uý.coinText.text = "" + PlayerData.playerData.CoinCount;
+        other.gameObject.SetActive(false);
     }
     #endregion
     #region HealthAdd
@@ -131,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerData.playerData.Health += ItemData.itemData.HealthInc;
         //health = PlayerData.playerData.Health;
-        Destroy(other.gameObject);
+        other.gameObject.SetActive(false);
     }
     #endregion
     #region TermScoreIncrease
@@ -140,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
         PlayerData.playerData.ScoreMultiply += ItemData.itemData.ScoreMultiplyInc;
         UIManager.uý.scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
         StartCoroutine(TermFinished());
-        Destroy(other.gameObject);
+        other.gameObject.SetActive(false);
     }
     #endregion
     #region TermScoreIncreaseFinish
@@ -156,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerData.playerData.ShieldCount++;
         UIManager.uý.shieldText.text = "" + PlayerData.playerData.ShieldCount;
-        Destroy(other.gameObject);
+        other.gameObject.SetActive(false);
     }
     #endregion
     #region SpeedAdd
@@ -164,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerData.playerData.SpeedCount++;
         UIManager.uý.speedText.text = "" + PlayerData.playerData.SpeedCount;
-        Destroy(other.gameObject);
+        other.gameObject.SetActive(false);
     }
     #endregion
 }

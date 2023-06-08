@@ -17,10 +17,13 @@ public class EnemyBulletMove : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
-            CapsuleCollider cc = other.GetComponent<CapsuleCollider>();
+            transform.parent.parent.GetComponent<Animator>().SetBool("Fire", false);
             PlayerMovement.player.playerAnim.SetTrigger("Death");
             FindObjectOfType<PlayerMovement>().enabled = false;
+            FireToPlayer fireToPlayer = transform.parent.GetComponent<FireToPlayer>();
+            fireToPlayer.CancelInvoke();
             FindObjectOfType<FireToEnemy>().CancelInvoke();
+            CapsuleCollider cc = other.GetComponent<CapsuleCollider>();
             Destroy(cc);
             Destroy(other.gameObject, 3);
             Destroy(gameObject);

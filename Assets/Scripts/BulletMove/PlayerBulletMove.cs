@@ -19,9 +19,10 @@ public class PlayerBulletMove : MonoBehaviour
         CapsuleCollider cc = other.GetComponent<CapsuleCollider>();
         FireToPlayer fireToPlayer = other.transform.GetChild(8).GetComponent<FireToPlayer>();
         fireToPlayer.CancelInvoke();
+        FindObjectOfType<FireToEnemy>().CancelInvoke();
         enemyAnim.SetTrigger("Death");
-        Destroy(cc);
-        Destroy(other.gameObject, 3);
+        //cc.enabled = false;
+        //Destroy(other.gameObject, 3);
         Destroy(gameObject);
     }
 }

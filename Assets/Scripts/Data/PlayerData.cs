@@ -60,6 +60,11 @@ public class PlayerData : MonoBehaviour
             health = value;
             health = Mathf.Clamp(health, 0, 100);
             PlayerMovement.player.healthBar.DOFillAmount(health / 100, 1).SetEase(Ease.Linear);
+            if (health == 0)
+            {
+                PlayerMovement.player.playerAnim.SetTrigger("Death");
+                FindObjectOfType<PlayerMovement>().enabled = false;
+            }
         }
     }
     public float Speed

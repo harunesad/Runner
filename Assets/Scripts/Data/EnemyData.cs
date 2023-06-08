@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyConroller : MonoBehaviour
+public class EnemyData : MonoBehaviour
 {
-    public static EnemyConroller enemy;
+    public static EnemyData enemyData;
     public BoxCollider enemyCollider;
     #region Fields
     private float rangeCollider = 5;
@@ -32,11 +32,11 @@ public class EnemyConroller : MonoBehaviour
     #endregion
     private void Awake()
     {
-        enemy = this;
+        enemyData = this;
     }
     void Start()
     {
-        enemyCollider.size = new Vector3(.1f, .1f, rangeCollider);
+        enemyCollider.size = new Vector3(1, .1f, rangeCollider);
         enemyCollider.center = new Vector3(0, 0, rangeCollider / 2);
     }
 }

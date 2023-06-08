@@ -5,22 +5,24 @@ using UnityEngine;
 public class FireToPlayer : MonoBehaviour
 {
     public GameObject enemyBullet;
+    GameObject parent;
+    private void Start()
+    {
+        parent = transform.parent.gameObject;
+    }
     private void OnTriggerEnter(Collider other)
     {
         Fire();
-        GameObject parent = transform.parent.gameObject;
         parent.GetComponent<Animator>().SetBool("Fire", true);
     }
     private void OnTriggerExit(Collider other)
     {
-        if (Mathf.Abs(transform.position.x - other.transform.position.x) > 1)
-        {
-            CancelInvoke();
-        }
+        parent.GetComponent<Animator>().SetBool("Fire", false);
+        CancelInvoke();
     }
     void Fire()
     {
-        InvokeRepeating("BulletSpawn", .5f, EnemyConroller.enemy.RateFire);
+        InvokeRepeating("BulletSpawn", .5f, EnemyData.enemyData.RateFire);
     }
     void BulletSpawn()
     {
