@@ -21,11 +21,11 @@ public class UIManager : MonoBehaviour
         startNumber = 3;
         startNumberText.text = startNumber.ToString();
         scoreText.text = "" + score;
-        PlayerData.playerData.ScoreMultiply = ItemData.itemData.ScoreMultiplyStartCount;
+        PlayerData.playerData.ScoreMultiply = ItemData.itemData.scoreMultiplyStartCount;
         scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
-        PlayerData.playerData.ShieldCount = ItemData.itemData.ShieldStartCount;
+        PlayerData.playerData.ShieldCount = (int)ItemData.itemData.shieldStartCount;
         shieldText.text = "" + PlayerData.playerData.ShieldCount;
-        PlayerData.playerData.SpeedCount = ItemData.itemData.SpeedStartCount;
+        PlayerData.playerData.SpeedCount = (int)ItemData.itemData.speedStartCount;
         speedText.text = "" + PlayerData.playerData.SpeedCount;
         coinText.text = "" + PlayerData.playerData.CoinCount;
 
@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour
     #region TermScoreIncreaseFinish
     IEnumerator TermFinished()
     {
-        yield return new WaitForSeconds(ItemData.itemData.SpeedSlowTime);
+        yield return new WaitForSeconds(ItemData.itemData.speedSlowTime);
         PlayerData.playerData.Speed *= 2;
         PlayerMovement.player.playerAnim.speed *= 2;
     }

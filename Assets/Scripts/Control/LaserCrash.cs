@@ -23,7 +23,7 @@ public class LaserCrash : MonoBehaviour
     #region HealthReduce
     void HealthReduce()
     {
-        PlayerData.playerData.Health -= ItemData.itemData.HealthReduce;
+        PlayerData.playerData.Health -= ItemData.itemData.healthReduce;
     }
     #endregion
     #region ShieldClose
