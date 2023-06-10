@@ -126,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
     #region CoinAdd
     void CoinAdd(Collider other)
     {
-        PlayerData.playerData.CoinCount += ItemData.itemData.coinIncCount;
+        PlayerData.playerData.CoinCount += JsonSave.json.item.counts[0];
         GameUIManager.uý.coinText.text = "" + PlayerData.playerData.CoinCount;
         other.gameObject.SetActive(false);
     }
@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
     #region HealthAdd
     void HealthAdd(Collider other)
     {
-        PlayerData.playerData.Health += ItemData.itemData.healthInc;
+        PlayerData.playerData.Health += JsonSave.json.item.counts[1];
         //health = PlayerData.playerData.Health;
         other.gameObject.SetActive(false);
     }
@@ -142,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
     #region TermScoreIncrease
     void TermScoreInc(Collider other)
     {
-        PlayerData.playerData.ScoreMultiply += ItemData.itemData.scoreMultiplyInc;
+        PlayerData.playerData.ScoreMultiply += JsonSave.json.item.counts[4]; ;
         GameUIManager.uý.scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
         StartCoroutine(TermFinished());
         other.gameObject.SetActive(false);
@@ -151,8 +151,8 @@ public class PlayerMovement : MonoBehaviour
     #region TermScoreIncreaseFinish
     IEnumerator TermFinished()
     {
-        yield return new WaitForSeconds(ItemData.itemData.scoreMultiplyIncTime);
-        PlayerData.playerData.ScoreMultiply -= ItemData.itemData.scoreMultiplyInc;
+        yield return new WaitForSeconds(JsonSave.json.item.counts[5]);
+        PlayerData.playerData.ScoreMultiply -= JsonSave.json.item.counts[4]; ;
         GameUIManager.uý.scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
     }
     #endregion

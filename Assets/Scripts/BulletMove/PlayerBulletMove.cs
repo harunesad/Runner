@@ -21,7 +21,7 @@ public class PlayerBulletMove : MonoBehaviour
         fireToPlayer.CancelInvoke();
         FindObjectOfType<FireToEnemy>().CancelInvoke();
         enemyAnim.SetTrigger("Death");
-        //cc.enabled = false;
+        cc.enabled = false;
         //Destroy(other.gameObject, 3);
         Destroy(gameObject);
     }

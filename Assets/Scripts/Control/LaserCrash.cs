@@ -23,7 +23,7 @@ public class LaserCrash : MonoBehaviour
     #region HealthReduce
     void HealthReduce()
     {
-        PlayerData.playerData.Health -= ItemData.itemData.healthReduce;
+        PlayerData.playerData.Health -= JsonSave.json.item.counts[2];
     }
     #endregion
     #region ShieldClose
