@@ -4,9 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class GameUIManager : MonoBehaviour
 {
-    public static UIManager uý;
+    public static GameUIManager uý;
     public TextMeshProUGUI startNumberText, scoreText, scoreMultiplyText, coinText, shieldText, speedText;
     public Button shieldButton, speedButton;
     int startNumber;

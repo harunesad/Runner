@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public class ItemData
@@ -8,17 +6,19 @@ public class ItemData
     public static ItemData itemData;
     //public int MyProperty;
     #region CoinFields
+    public List<int> coins;
     public int coinIncCountCoin;
     public int healthIncCoin;
     public int healthReduceCoin;
     public int scoreMultiplyStartCountCoin;
     public int scoreMultiplyIncCoin;
     public int scoreMultiplyIncTimeCoin;
-    public int sheildStartCountCoin;
+    public int shieldStartCountCoin;
     public int speedStartCountCoin;
     public int speedSlowTimeCoin;
     #endregion
     #region CountFields
+    public List<float> counts;
     public float coinIncCount;
     public float healthInc;
     public float healthReduce;

@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        UIManager.uý.ScoreIncrease();
+        GameUIManager.uý.ScoreIncrease();
         SwerveSystem();
         Move();
         if (transform.position.z > GameManager.manager.newLevelsPos)
@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case "SHIELD":
                 PlayerData.playerData.ShieldCount += (int)countNumber;
-                UIManager.uý.shieldText.text = "" + PlayerData.playerData.ShieldCount;
+                GameUIManager.uý.shieldText.text = "" + PlayerData.playerData.ShieldCount;
                 break;
             case "SPEED":
                 PlayerData.playerData.Speed += countNumber;
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
     void CoinAdd(Collider other)
     {
         PlayerData.playerData.CoinCount += ItemData.itemData.coinIncCount;
-        UIManager.uý.coinText.text = "" + PlayerData.playerData.CoinCount;
+        GameUIManager.uý.coinText.text = "" + PlayerData.playerData.CoinCount;
         other.gameObject.SetActive(false);
     }
     #endregion
@@ -143,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
     void TermScoreInc(Collider other)
     {
         PlayerData.playerData.ScoreMultiply += ItemData.itemData.scoreMultiplyInc;
-        UIManager.uý.scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
+        GameUIManager.uý.scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
         StartCoroutine(TermFinished());
         other.gameObject.SetActive(false);
     }
@@ -153,14 +153,14 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(ItemData.itemData.scoreMultiplyIncTime);
         PlayerData.playerData.ScoreMultiply -= ItemData.itemData.scoreMultiplyInc;
-        UIManager.uý.scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
+        GameUIManager.uý.scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
     }
     #endregion
     #region ShieldAdd
     void ShieldAdd(Collider other)
     {
         PlayerData.playerData.ShieldCount++;
-        UIManager.uý.shieldText.text = "" + PlayerData.playerData.ShieldCount;
+        GameUIManager.uý.shieldText.text = "" + PlayerData.playerData.ShieldCount;
         other.gameObject.SetActive(false);
     }
     #endregion
@@ -168,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
     void SpeedAdd(Collider other)
     {
         PlayerData.playerData.SpeedCount++;
-        UIManager.uý.speedText.text = "" + PlayerData.playerData.SpeedCount;
+        GameUIManager.uý.speedText.text = "" + PlayerData.playerData.SpeedCount;
         other.gameObject.SetActive(false);
     }
     #endregion

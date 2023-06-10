@@ -6,7 +6,7 @@ using System.IO;
 public static class SaveManager
 {
     public static string directory = "/SaveData/";
-    public static string fileName = "SaveProduct.json";
+    public static string fileName = "SaveRunner.json";
     public static void Save(ItemData item)
     {
         string dir = Application.persistentDataPath + directory;
@@ -17,22 +17,22 @@ public static class SaveManager
         }
         string json = JsonUtility.ToJson(item);
         File.WriteAllText(dir + fileName, json);
-        Debug.Log(dir);
+        Debug.Log(dir + fileName);
     }
     public static ItemData Load()
     {
         string fullPath = Application.persistentDataPath + directory + fileName;
-        ItemData so = new ItemData();
-
+        ItemData item = new ItemData();
+        Debug.Log(fullPath);
         if (File.Exists(fullPath))
         {
             string json = File.ReadAllText(fullPath);
-            so = JsonUtility.FromJson<ItemData>(json);
+            item = JsonUtility.FromJson<ItemData>(json);
         }
         else
         {
             Debug.Log("sadas");
         }
-        return so;
+        return item;
     }
 }

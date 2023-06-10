@@ -5,17 +5,25 @@ using UnityEngine.UI;
 
 public class JsonSave : MonoBehaviour
 {
+    int save = 0;
     public static JsonSave json;
     public ItemData item;
     private void Awake()
     {
         json = this;
     }
-    void Start()
+    public void StartSave()
     {
-        item.coinIncCount = 56;
-        SaveManager.Save(item);
+        if (PlayerPrefs.GetInt("Save") == 0)
+        {
+            SaveManager.Save(item);
+            save++;
+            PlayerPrefs.SetInt("Save", save);
+        }
         item = SaveManager.Load();
-        Debug.Log(item.coinIncCount);
+    }
+    public void Save()
+    {
+        SaveManager.Save(item);
     }
 }
