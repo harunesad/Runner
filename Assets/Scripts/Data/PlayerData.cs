@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 public class PlayerData : MonoBehaviour
 {
@@ -64,6 +63,7 @@ public class PlayerData : MonoBehaviour
             {
                 PlayerMovement.player.playerAnim.SetTrigger("Death");
                 FindObjectOfType<PlayerMovement>().enabled = false;
+                HighScoreSave();
             }
         }
     }
@@ -98,4 +98,21 @@ public class PlayerData : MonoBehaviour
     {
         playerData = this;
     }
+    #region HighScoreSave
+    public void HighScoreSave()
+    {
+        PlayerPrefs.SetFloat("HighScore", GameUIManager.uý.score);
+        for (int i = 0; i < JsonSave.json.item.highScore.Count; i++)
+        {
+            if (Mathf.FloorToInt(PlayerPrefs.GetFloat("HighScore")) > Mathf.FloorToInt(JsonSave.json.item.highScore[i].highScore))
+            {
+                JsonSave.json.item.highScore[5].highScore = Mathf.FloorToInt(PlayerPrefs.GetFloat("HighScore"));
+                JsonSave.json.item.highScore = JsonSave.json.item.highScore.OrderByDescending(x => x.highScore).ToList();
+                SaveManager.Save(JsonSave.json.item);
+                break;
+            }
+        }
+    }
+    #endregion
 }
+

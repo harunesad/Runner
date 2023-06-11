@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -18,14 +16,12 @@ public class EnemyBulletMove : MonoBehaviour
         if (other.gameObject.layer == 6)
         {
             transform.parent.parent.GetComponent<Animator>().SetBool("Fire", false);
-            PlayerMovement.player.playerAnim.SetTrigger("Death");
-            FindObjectOfType<PlayerMovement>().enabled = false;
+            PlayerData.playerData.Health = 0;
             FireToPlayer fireToPlayer = transform.parent.GetComponent<FireToPlayer>();
             fireToPlayer.CancelInvoke();
             FindObjectOfType<FireToEnemy>().CancelInvoke();
             CapsuleCollider cc = other.GetComponent<CapsuleCollider>();
             Destroy(cc);
-            Destroy(other.gameObject, 3);
             Destroy(gameObject);
         }
         if (other.gameObject.layer == 16)

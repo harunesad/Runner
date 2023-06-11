@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -12,7 +11,9 @@ public class MenuUIManager : MonoBehaviour
     [SerializeField] List<Button> upgradeButtons;
     [SerializeField] List<string> textNames;
     [SerializeField] TextMeshProUGUI myCoin;
-    [SerializeField] Button playButton;
+    [SerializeField] Button playButton, scoreboardButton;
+    [SerializeField] GameObject scoreboardPanel;
+    [SerializeField] List<TextMeshProUGUI> highScoreText;
     void Start()
     {
         PlayerPrefs.SetFloat("Coin", 100000);
@@ -23,6 +24,10 @@ public class MenuUIManager : MonoBehaviour
         {
             counts[i].text = textNames[i] + JsonSave.json.item.counts[i];
             coins[i].text = "" + JsonSave.json.item.coins[i];
+        }
+        for (int i = 0; i < highScoreText.Count; i++)
+        {
+            highScoreText[i].text = "" + JsonSave.json.item.highScore[i].highScore;
         }
 
         upgradeButtons[0].onClick.AddListener(UpgradeCoinIncCount);
@@ -35,7 +40,9 @@ public class MenuUIManager : MonoBehaviour
         upgradeButtons[7].onClick.AddListener(UpgradeSpeedStartCount);
         upgradeButtons[8].onClick.AddListener(UpgradeSpeedSlowTime);
         playButton.onClick.AddListener(PlayGame);
+        scoreboardButton.onClick.AddListener(ScoreboardOpen);
     }
+    #region UpgradeItems
     void UpgradeCoinIncCount()
     {
         Upgrade(JsonSave.json.item.counts, 0, JsonSave.json.item.coins, .1f, counts, coins, textNames);
@@ -72,6 +79,8 @@ public class MenuUIManager : MonoBehaviour
     {
         Upgrade(JsonSave.json.item.counts, 8, JsonSave.json.item.coins, 1f, counts, coins, textNames);
     }
+    #endregion
+    #region UpgradeGeneral
     void Upgrade(List<float> item, int index, List<int> itemCoin, float itemInc, List<TextMeshProUGUI> itemText, List<TextMeshProUGUI> itemCoinText, List<string> itemName)
     {
         if (PlayerPrefs.GetFloat("Coin") >= itemCoin[index])
@@ -94,8 +103,17 @@ public class MenuUIManager : MonoBehaviour
             JsonSave.json.item = SaveManager.Load();
         }
     }
+    #endregion
+    #region Play
     void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+    #endregion
+    #region ScoreboardShowing
+    void ScoreboardOpen()
+    {
+        scoreboardPanel.SetActive(!scoreboardPanel.activeSelf);
+    }
+    #endregion
 }

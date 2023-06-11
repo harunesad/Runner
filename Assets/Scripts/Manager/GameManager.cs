@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-//using System.Diagnostics;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -38,6 +36,7 @@ public class GameManager : MonoBehaviour
             pos.AddRange(newPos);
         }
     }
+    #region RandomItem
     void RandomItem(GameObject obj)
     {
         obj.SetActive(true);
@@ -46,6 +45,8 @@ public class GameManager : MonoBehaviour
         obj.transform.position = new Vector3(randPosX, obj.transform.position.y, randPosZ);
         pos.RemoveAt(0);
     }
+    #endregion
+    #region RandomEnemyPos
     void RandomEnemyPos(GameObject obj)
     {
         int rand = Random.Range(0, pos.Count);
@@ -54,12 +55,16 @@ public class GameManager : MonoBehaviour
         obj.transform.position = new Vector3(randPosX, obj.transform.position.y, randPosZ);
         pos.RemoveAt(rand);
     }
+    #endregion
+    #region RandomTrapPos
     void RandomTrapPos(GameObject obj)
     {
         float randPosZ = Random.Range(pos[0].minPosZ, pos[0].maxPosZ);
         obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, randPosZ);
         pos.RemoveAt(0);
     }
+    #endregion
+    #region NewLevels
     public void NewLevels()
     {
         if (levelCount == 0)
@@ -71,6 +76,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine(NewLevel(levelCount, levelCount - 1));
         }
     }
+    #endregion
+    #region LevelsShowing
     IEnumerator NewLevel(int posLevelCount, int posZlevelCount)
     {
         GameObject enemy = levels[levelCount].transform.GetChild(0).gameObject;
@@ -108,6 +115,8 @@ public class GameManager : MonoBehaviour
         }
         enemy.GetComponent<Animator>().SetBool("NewAnimation", false);
     }
+
+    #endregion
 }
 [System.Serializable]
 public class randomPos

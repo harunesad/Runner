@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FireToPlayer : MonoBehaviour
@@ -20,6 +18,7 @@ public class FireToPlayer : MonoBehaviour
         parent.GetComponent<Animator>().SetBool("Fire", false);
         CancelInvoke();
     }
+    #region Fire
     void Fire()
     {
         InvokeRepeating("BulletSpawn", .5f, EnemyData.enemyData.RateFire);
@@ -27,6 +26,6 @@ public class FireToPlayer : MonoBehaviour
     void BulletSpawn()
     {
         Instantiate(enemyBullet, transform.position, Quaternion.identity, transform);
-        //Time.timeScale = 0;
     }
+    #endregion
 }

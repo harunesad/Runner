@@ -1,17 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager uý;
     public TextMeshProUGUI startNumberText, scoreText, scoreMultiplyText, coinText, shieldText, speedText;
-    public Button shieldButton, speedButton;
+    public Button shieldButton, speedButton, menuButton, restartButton;
     int startNumber;
     float scoreIncMultiply = 100;
-    float score = 0;
+    public float score = 0;
     private void Awake()
     {
         uý = this;
@@ -32,12 +32,10 @@ public class GameUIManager : MonoBehaviour
 
         speedButton.onClick.AddListener(SpeedSlow);
         shieldButton.onClick.AddListener(ShieldOpen);
+        menuButton.onClick.AddListener(MenuLoading);
+        restartButton.onClick.AddListener(Restart);
 
         StartCoroutine(GameStart());
-    }
-    private void Update()
-    {
-        
     }
     #region ScoreAndMultiply
     public void ScoreIncrease()
@@ -47,6 +45,7 @@ public class GameUIManager : MonoBehaviour
         if (score > scoreIncMultiply)
         {
             PlayerData.playerData.ScoreMultiply += .1f;
+            PlayerData.playerData.Speed += .1f;
             scoreMultiplyText.text = "x" + PlayerData.playerData.ScoreMultiply;
             scoreIncMultiply += scoreIncMultiply;
         }
@@ -67,7 +66,6 @@ public class GameUIManager : MonoBehaviour
         yield return new WaitForSeconds(.25f);
         startNumberText.gameObject.SetActive(false);
         FindObjectOfType<PlayerMovement>().enabled = true;
-        //FindObjectOfType<GameManager>().enabled = true;
     }
     #endregion
     #region SpeedSlow
@@ -100,6 +98,18 @@ public class GameUIManager : MonoBehaviour
             PlayerData.playerData.ShieldCount--;
             shieldText.text = "" + PlayerData.playerData.ShieldCount;
         }
+    }
+    #endregion
+    #region MenuLoading
+    void MenuLoading()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+    #endregion
+    #region Restart
+    void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     #endregion
 }

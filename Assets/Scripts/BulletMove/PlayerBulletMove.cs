@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -22,7 +20,6 @@ public class PlayerBulletMove : MonoBehaviour
         FindObjectOfType<FireToEnemy>().CancelInvoke();
         enemyAnim.SetTrigger("Death");
         cc.enabled = false;
-        //Destroy(other.gameObject, 3);
         Destroy(gameObject);
     }
 }

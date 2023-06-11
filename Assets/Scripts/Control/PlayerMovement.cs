@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -15,18 +14,14 @@ public class PlayerMovement : MonoBehaviour
     float lastFrameFingerPositionX;
     float moveFactorX;
     public float swerveSpeed = 1f;
-    //float health;
     private void Awake()
     {
         player = this;
-        //playerAnim = GetComponent<Animator>();
-        //playerShield = transform.GetChild(9).gameObject;
     }
     private void Start()
     {
         playerCollider.size = new Vector3(1f, .1f, PlayerData.playerData.RangeColider);
         playerCollider.center = new Vector3(0, 0, PlayerData.playerData.RangeColider / 2);
-        //health = PlayerData.playerData.Health;
     }
     void Update()
     {
@@ -96,6 +91,13 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 17)
+        {
+            PlayerData.playerData.Health = 0;
+        }
+    }
     #region GateCrash
     void NumberFind(Collider other, float result)
     {
@@ -117,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
                 PlayerData.playerData.Speed += countNumber;
                 break;
             case "RATEFIRE":
+                PlayerData.playerData.RateFire += countNumber;
                 break;
             default:
                 break;
@@ -135,7 +138,6 @@ public class PlayerMovement : MonoBehaviour
     void HealthAdd(Collider other)
     {
         PlayerData.playerData.Health += JsonSave.json.item.counts[1];
-        //health = PlayerData.playerData.Health;
         other.gameObject.SetActive(false);
     }
     #endregion

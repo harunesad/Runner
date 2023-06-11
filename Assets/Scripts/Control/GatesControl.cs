@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -65,41 +63,30 @@ public class GatesControl : MonoBehaviour
     #region GateOperations
     void GateRange(GameObject gatePositive, GameObject gateNegative)
     {
-        TextMeshProUGUI[] countPositive = gatePositive.GetComponentsInChildren<TextMeshProUGUI>();
-        TextMeshProUGUI[] countNegative = gateNegative.GetComponentsInChildren<TextMeshProUGUI>();
         float randomCount = Random.Range(.1f, .5f);
-        countPositive[0].text = "+" + Math.Round(randomCount, 1);
-        countNegative[0].text = "-" + Math.Round(randomCount, 1);
-        countPositive[1].text = "RANGE";
-        countNegative[1].text = "RANGE";
+        GeneralGate(gatePositive, gateNegative, (float)Math.Round(randomCount, 1), "RANGE");
     }
     void GateShield(GameObject gatePositive, GameObject gateNegative)
     {
-        TextMeshProUGUI[] countPositive = gatePositive.GetComponentsInChildren<TextMeshProUGUI>();
-        TextMeshProUGUI[] countNegative = gateNegative.GetComponentsInChildren<TextMeshProUGUI>();
-        countPositive[0].text = "+" + 1;
-        countNegative[0].text = "-" + 1;
-        countPositive[1].text = "SHIELD";
-        countNegative[1].text = "SHIELD";
+        GeneralGate(gatePositive, gateNegative, 1, "SHIELD");
     }
     void GateSpeed(GameObject gatePositive, GameObject gateNegative)
     {
-        TextMeshProUGUI[] countPositive = gatePositive.GetComponentsInChildren<TextMeshProUGUI>();
-        TextMeshProUGUI[] countNegative = gateNegative.GetComponentsInChildren<TextMeshProUGUI>();
         float randomCount = Random.Range(.1f, .5f);
-        countPositive[0].text = "+" + Math.Round(randomCount, 1);
-        countNegative[0].text = "-" + Math.Round(randomCount, 1);
-        countPositive[1].text = "SPEED";
-        countNegative[1].text = "SPEED";
+        GeneralGate(gatePositive, gateNegative, (float)Math.Round(randomCount, 1), "SPEED");
     }
     void GateRateFire(GameObject gatePositive, GameObject gateNegative)
     {
+        GeneralGate(gatePositive, gateNegative, .1f, "RATEFIRE");
+    }
+    void GeneralGate(GameObject gatePositive, GameObject gateNegative, float value, string gateName)
+    {
         TextMeshProUGUI[] countPositive = gatePositive.GetComponentsInChildren<TextMeshProUGUI>();
         TextMeshProUGUI[] countNegative = gateNegative.GetComponentsInChildren<TextMeshProUGUI>();
-        countPositive[0].text = "+" + .1f;
-        countNegative[0].text = "-" + .1f;
-        countPositive[1].text = "RATEFIRE";
-        countNegative[1].text = "RATEFIRE";
+        countPositive[0].text = "+" + value;
+        countNegative[0].text = "-" + value;
+        countPositive[1].text = gateName;
+        countNegative[1].text = gateName;
     }
     #endregion
     private void Awake()

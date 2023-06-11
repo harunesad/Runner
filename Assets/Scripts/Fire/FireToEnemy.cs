@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FireToEnemy : MonoBehaviour
@@ -13,6 +11,7 @@ public class FireToEnemy : MonoBehaviour
     {
         CancelInvoke();
     }
+    #region Fire
     void Fire()
     {
         InvokeRepeating("BulletSpawn", .5f, PlayerData.playerData.RateFire);
@@ -21,4 +20,5 @@ public class FireToEnemy : MonoBehaviour
     {
         Instantiate(playerBullet, transform.position, Quaternion.identity, transform);
     }
+    #endregion
 }

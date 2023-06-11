@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class JsonSave : MonoBehaviour
 {
@@ -12,6 +9,7 @@ public class JsonSave : MonoBehaviour
     {
         json = this;
     }
+    #region StartSave
     public void StartSave()
     {
         if (PlayerPrefs.GetInt("Save") == 0)
@@ -22,8 +20,5 @@ public class JsonSave : MonoBehaviour
         }
         item = SaveManager.Load();
     }
-    public void Save()
-    {
-        SaveManager.Save(item);
-    }
+    #endregion
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
@@ -17,13 +15,11 @@ public static class SaveManager
         }
         string json = JsonUtility.ToJson(item);
         File.WriteAllText(dir + fileName, json);
-        Debug.Log(dir + fileName);
     }
     public static ItemData Load()
     {
         string fullPath = Application.persistentDataPath + directory + fileName;
         ItemData item = new ItemData();
-        Debug.Log(fullPath);
         if (File.Exists(fullPath))
         {
             string json = File.ReadAllText(fullPath);
@@ -31,7 +27,7 @@ public static class SaveManager
         }
         else
         {
-            Debug.Log("sadas");
+            Debug.Log("Bulunamadý");
         }
         return item;
     }
