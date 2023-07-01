@@ -21,7 +21,6 @@ public class MenuUIManager : MonoBehaviour
     public List<Material> playerMat;
     void Start()
     {
-        PlayerPrefs.SetFloat("Coin", 100000);
         myCoin.text = "" + PlayerPrefs.GetFloat("Coin");
 
         CharacterPaint();
