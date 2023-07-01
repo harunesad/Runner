@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> levels;
     public List<randomPos> pos;
     public List<randomPos> newPos;
+    public List<Material> playerMat;
     public GameObject enemy;
     public float posDifferent, newLevelsPos;
     int levelCount;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        CharacterPaint();
         levelCount = 0;
         newLevelsPos = 72;
         posDifferent = levels[1].transform.GetChild(4).position.z - levels[0].transform.GetChild(4).position.z;
@@ -36,6 +38,19 @@ public class GameManager : MonoBehaviour
             pos.AddRange(newPos);
         }
     }
+    #region CharacterPaint
+    public void CharacterPaint()
+    {
+        for (int i = 1; i < 7; i++)
+        {
+            if (i == 4)
+            {
+                continue;
+            }
+            PlayerMovement.player.gameObject.transform.GetChild(i).GetComponent<SkinnedMeshRenderer>().material = playerMat[PlayerPrefs.GetInt("Character")];
+        }
+    }
+    #endregion
     #region RandomItem
     void RandomItem(GameObject obj)
     {

@@ -3,22 +3,28 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MenuUIManager : MonoBehaviour
 {
+    public static MenuUIManager menuUI;
     [SerializeField] List<TextMeshProUGUI> counts;
     [SerializeField] List<TextMeshProUGUI> coins;
     [SerializeField] List<Button> upgradeButtons;
     [SerializeField] List<string> textNames;
-    [SerializeField] TextMeshProUGUI myCoin;
-    [SerializeField] Button playButton, scoreboardButton;
-    [SerializeField] GameObject scoreboardPanel;
+    public TextMeshProUGUI myCoin;
+    [SerializeField] Button playButton, scoreboardOpenButton, scoreboardCloseButton, upgradeOpenButton, upgradeCloseButton,
+                     paintingOpenButton, paintingCloseButton, button1, button2, button3, button4, button5;
+    [SerializeField] GameObject scoreboardPanel, upgradepanel, paintingPanel;
+    public GameObject player;
     [SerializeField] List<TextMeshProUGUI> highScoreText;
+    public List<Material> playerMat;
     void Start()
     {
         PlayerPrefs.SetFloat("Coin", 100000);
         myCoin.text = "" + PlayerPrefs.GetFloat("Coin");
 
+        CharacterPaint();
         JsonSave.json.StartSave();
         for (int i = 0; i < counts.Count; i++)
         {
@@ -39,9 +45,90 @@ public class MenuUIManager : MonoBehaviour
         upgradeButtons[6].onClick.AddListener(UpgradeShieldStartCount);
         upgradeButtons[7].onClick.AddListener(UpgradeSpeedStartCount);
         upgradeButtons[8].onClick.AddListener(UpgradeSpeedSlowTime);
+
         playButton.onClick.AddListener(PlayGame);
-        scoreboardButton.onClick.AddListener(ScoreboardOpen);
+        scoreboardOpenButton.onClick.AddListener(ScoreboardOpen);
+        scoreboardCloseButton.onClick.AddListener(ScoreboardClose);
+        upgradeOpenButton.onClick.AddListener(UpgradeOpen);
+        upgradeCloseButton.onClick.AddListener(UpgradeClose);
+        paintingOpenButton.onClick.AddListener(PaintingOpen);
+        paintingCloseButton.onClick.AddListener(PaintingClose);
+
+        button1.onClick.AddListener(delegate { BuyPaint(100, button1.gameObject); });
+        button2.onClick.AddListener(delegate { BuyPaint(250, button2.gameObject); });
+        button3.onClick.AddListener(delegate { BuyPaint(500, button3.gameObject); });
+        button4.onClick.AddListener(delegate { BuyPaint(1000, button4.gameObject); });
+        button5.onClick.AddListener(delegate { BuyPaint(2000, button5.gameObject); });
     }
+    #region Play
+    void PlayGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    #endregion
+    #region CharacterPaint
+    public void CharacterPaint()
+    {
+        for (int i = 1; i < 7; i++)
+        {
+            if (i == 4)
+            {
+                continue;
+            }
+            player.transform.GetChild(i).GetComponent<SkinnedMeshRenderer>().material = playerMat[PlayerPrefs.GetInt("Character")];
+        }
+    }
+    #endregion
+    #region BuyPaint
+    void BuyPaint(int coin, GameObject obj)
+    {
+        if (PlayerPrefs.GetFloat("Coin") >= coin)
+        {
+            PlayerPrefs.SetFloat("Coin", PlayerPrefs.GetFloat("Coin") - coin);
+            myCoin.text = "" + PlayerPrefs.GetFloat("Coin");
+            PlayerPrefs.SetString(obj.transform.parent.name, "False");
+            obj.SetActive(false);
+            PlayerPrefs.SetString(obj.transform.parent.name + "Choose", "True");
+        }
+    }
+    #endregion
+    #region PaintingOpen
+    void PaintingOpen()
+    {
+        paintingPanel.SetActive(true);
+    }
+    #endregion
+    #region PaintingClose
+    void PaintingClose()
+    {
+        CharacterPaint();
+        paintingPanel.SetActive(false);
+    }
+    #endregion
+    #region ScoreboardOpen
+    void ScoreboardOpen()
+    {
+        scoreboardPanel.SetActive(true);
+    }
+    #endregion
+    #region ScoreboardClose
+    void ScoreboardClose()
+    {
+        scoreboardPanel.SetActive(false);
+    }
+    #endregion
+    #region UpgradeOpen
+    void UpgradeOpen()
+    {
+        upgradepanel.SetActive(true);
+    }
+    #endregion
+    #region UpgradeClose
+    void UpgradeClose()
+    {
+        upgradepanel.SetActive(false);
+    }
+    #endregion
     #region UpgradeItems
     void UpgradeCoinIncCount()
     {
@@ -102,18 +189,6 @@ public class MenuUIManager : MonoBehaviour
             SaveManager.Save(JsonSave.json.item);
             JsonSave.json.item = SaveManager.Load();
         }
-    }
-    #endregion
-    #region Play
-    void PlayGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-    #endregion
-    #region ScoreboardShowing
-    void ScoreboardOpen()
-    {
-        scoreboardPanel.SetActive(!scoreboardPanel.activeSelf);
     }
     #endregion
 }
